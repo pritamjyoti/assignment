@@ -1,5 +1,5 @@
 http://localhost:8000/api/register
-Fields name =  Name, email, password
+Fields name =  name, email, password
 
 for login
 http://localhost:8000/oauth/token
