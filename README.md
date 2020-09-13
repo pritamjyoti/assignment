@@ -20,3 +20,7 @@ post field name = file (type file)
 Excel Details 
 http://localhost:8000/api/excel_details
 post field name = file_id, file_name
+
+
+for excel download
+http://localhost:8000/api/excel_download/8

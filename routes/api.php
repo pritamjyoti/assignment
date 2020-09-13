@@ -23,3 +23,6 @@ Route::group(['middleware' => ['auth:api']], function () {
 });
 Route::post('excel_import', 'ExcelController@store'); 
 Route::post('excel_details', 'ExcelController@details'); 
+Route::get('excel_download/{id}', 'ExcelController@download'); 
+
+

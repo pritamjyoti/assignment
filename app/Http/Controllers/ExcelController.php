@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Excel;
 use App\ExcelReport;
 use App\ExcelReportDetails;
-
+use Illuminate\Support\Facades\Storage;
 use App\Imports\ExcelImport;
 class ExcelController extends Controller
 {
@@ -67,5 +67,12 @@ class ExcelController extends Controller
 
     }
 
+    public function download($id){
+        $res = ExcelReport::find($id);
+        $file = $res->excel_name;
+      
+        return response()->download(public_path('documents/'.$file));
+      
+    }
   
 }
