@@ -10,6 +10,8 @@ use App\Product;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+
+use Cart;
 class CustomerController extends Controller
 {
     use AuthenticatesUsers;
@@ -36,7 +38,7 @@ class CustomerController extends Controller
             ]);
             if (Auth::guard('font')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
 
-                return redirect()->intended('/Customer');
+                return redirect('customer')->with('Success','Customer Login is Success');
             }
         }
         return view('c_auth.login');
@@ -62,6 +64,41 @@ class CustomerController extends Controller
         }
         return view('c_auth.register');
     }
+    public function add_to_cart(Request $request){
+       // dd($request->all());
+       try {
+        Cart::session(Auth::guard('font')->user()->id)->remove($request->pr_id);
+      }catch(Exception $e) {
+        echo 'Message: ' .$e->getMessage();
+      }
+       
+        Cart::session(Auth::guard('font')->user()->id)->add(array(
+            'id' => $request->pr_id,
+            'name' => $request->pr_name,
+            'price' => $request->pr_price,
+            'quantity' => $request->quantity,
+            
+        ));
+       
+      return redirect()->back();
+
+    }
+    public function cart_list(){
+        $view = \Cart::session(Auth::guard('font')->user()->id)->getContent();
+       // dd($items);
+        return view('customer.cart',compact('view'));
+    }
+    public function cart_delete($id){
+       // echo $id; exit;
+        Cart::session(Auth::guard('font')->user()->id)->remove($id);
+        return redirect()->back();
+    }
+    public function order(){
+        $view = \Cart::session(Auth::guard('font')->user()->id)->getContent();
+
+    }
+
+
 
   
 

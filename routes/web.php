@@ -25,8 +25,15 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('product', 'ProductController');
 });
 
-    Route::get('/customer', 'CustomerController@index');
-    Route::get('/product_list', 'CustomerController@product');
+    Route::get('customer', 'CustomerController@index')->name('customer');
+    Route::get('product_list', 'CustomerController@product');
+   Route::post('add_to_cart', 'CustomerController@add_to_cart');
+   
+   Route::get('cart_list', 'CustomerController@cart_list');
+   Route::get('order_list', 'CustomerController@order_list');
+   Route::get('order', 'CustomerController@order');
+   Route::get('cart_delete/{id}', 'CustomerController@cart_delete');
+   
   
 Route::any('customer_login', 'CustomerController@login');
 Route::any('customer_register', 'CustomerController@register');

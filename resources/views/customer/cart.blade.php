@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">All Product </div>
+                <div class="card-header">Cart Product List </div>
                 @can('create', Auth::user())
                 <div style="float: right;"><a href="{{ route('product.create') }}" class="btn btn-primary btn-sm">Add new Product</a></div>  
                 @endcan
@@ -19,8 +19,7 @@
                         <th>Name</th>
                         <th>Price</th>
                         <th>Quantity</th>
-                        <th>SKU</th>
-                        <th>status</th>
+                        
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -31,11 +30,11 @@
                     <td>{{$k+1}}</td>
                      
                         <td>{{$row->name}}</td>
-                        <td>{{$row->amount}}</td>
-                        <td>{{$total_product = $row->quantity - $row->orderd_quantity }}</td>
-                        <td>{{$row->sku}}</td>
-                        <td>{{($row->in_stock ==1)?"In-stock":"Out of stock"}}</td>
-                        <td>  <a href="#" onclick="add_to_cart('{{ $row->name }}',{{ $row->id }},{{$total_product}},{{$row->amount}})" class="btn btn-primary btn-sm">Add To Cart</a>
+                        <td>{{$row->price}}</td>
+                       
+                        <td>{{$row->quantity}}</td>
+                        
+                        <td>  <a href="{{ url('cart_delete/'.$row->id) }}" class="btn btn-primary btn-sm">Remove</a>
                                                 
                         
                         </td>
@@ -46,7 +45,7 @@
                     </tbody>
                     </table>
                     <br>
-                   
+                   <a href="{{ url('order') }}" class="btn btn-sm btn-primary" >Billing</a>
                 </div>
             </div>
         </div>

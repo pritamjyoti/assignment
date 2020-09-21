@@ -43,12 +43,15 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest('font')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">Admin {{ __('Login') }}</a>
+                        </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('customer_login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link" href="{{ url('customer_login') }}">Customer {{ __('Login') }}</a>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('customer_register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ url('customer_register') }}">Customer {{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
@@ -56,7 +59,10 @@
                             <a class="nav-link" href="{{ url('product_list') }}">Product</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Cart List</a>
+                            <a class="nav-link" href="{{ url('cart_list') }}">Cart List</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('order_list') }}">order</a>
                         </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" onclick="event.preventDefault();
