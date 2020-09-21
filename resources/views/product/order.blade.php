@@ -1,12 +1,12 @@
 <?php use App\ActRules; ?>
-@extends('layouts.app2')
+@extends('layouts.app')
 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">All Product </div>
+                <div class="card-header">All Order </div>
                 @can('create', Auth::user())
                 
                 @endcan
@@ -16,12 +16,13 @@
                     <thead>
                     <tr>
                     <th>sl</th>
-                        <th>Name</th>
+                    <th>Customer Name</th>    
+                    <th>Product Name</th>
                         <th>Price</th>
                         <th>Quantity</th>
-                        <th>SKU</th>
-                        <th>status</th>
-                        <th>Action</th>
+                        <th>Order No</th>
+                        <th>Order Date</th>
+                       
                     </tr>
                     </thead>
                     <tbody>
@@ -29,16 +30,13 @@
 
                     <tr>
                     <td>{{$k+1}}</td>
-                     
-                        <td>{{$row->name}}</td>
-                        <td>{{$row->amount}}</td>
-                        <td>{{$total_product = $row->quantity - $row->orderd_quantity }}</td>
-                        <td>{{$row->sku}}</td>
-                        <td>{{($row->in_stock ==1)?"In-stock":"Out of stock"}}</td>
-                        <td>  <a href="#" onclick="add_to_cart('{{ $row->name }}',{{ $row->id }},{{$total_product}},{{$row->amount}})" class="btn btn-primary btn-sm">Add To Cart</a>
-                                                
-                        
-                        </td>
+                    <td>{{$row->user->name}}</td>
+                        <td>{{$row->product->name}}</td>
+                        <td>{{$row->price}}</td>
+                        <td>{{$row->quantity}}</td>
+                        <td>{{$row->order}}</td>
+                        <td>{{date('d-m-Y',strtotime($row->created_at))}}</td>
+                       
                     </tr>
                     <?php } 
                     

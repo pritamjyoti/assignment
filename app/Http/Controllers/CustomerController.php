@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Hash;
+use App\Order;
 use Auth;
 use App\Customer;
 use App\Product;
@@ -95,9 +96,34 @@ class CustomerController extends Controller
     }
     public function order(){
         $view = \Cart::session(Auth::guard('font')->user()->id)->getContent();
+        foreach($view as $key=>$row){
+            $prs= Product::find($row->id);
+            $quantity = $prs->quantity- $prs->orderd_quantity;
+            if(($prs->in_stock == 1) && ($quantity >=$row->quantity )){
+
+            $data['product_id']=$row->id;
+            $data['user_id']=Auth::guard('font')->user()->id;
+            $data['price']=$row->quantity * $row->price;
+            $data['quantity']=$row->quantity;
+            $data['status']=1;
+            $data['order']= rand().$key;
+            Order::create($data);
+            $up_prod['orderd_quantity'] = $data['quantity'];
+            if($quantity == $data['quantity']){
+                $data['in_stock']=0;
+            }
+            Product::where('id',$row->id)->update($up_prod);
+
+            }
+            return redirect('order_list');
+        }
+       
 
     }
-
+    public function order_list(){
+        $view = Order::with('product')->where('user_id',Auth::guard('font')->user()->id)->get();
+        return view('customer.order',compact('view')); 
+    }
 
 
   

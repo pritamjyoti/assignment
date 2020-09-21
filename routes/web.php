@@ -21,8 +21,10 @@ Auth::routes();
 
 Route::any('excel', 'ExcelController@store'); 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/home', 'HomeController@index');
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/product_order', 'ProductController@product_order')->name('product_order');
     Route::resource('product', 'ProductController');
+
 });
 
     Route::get('customer', 'CustomerController@index')->name('customer');

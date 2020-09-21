@@ -58,6 +58,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('product.index') }}">Product</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('product_order') }}">All Order List</a>
+                        </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

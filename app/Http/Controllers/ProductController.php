@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\ProductDetails;
 use App\Product;
+use App\Order;
 class ProductController extends Controller
 {
     public function index(){
@@ -34,6 +35,10 @@ class ProductController extends Controller
         }
 
         return redirect()->route('product.index')->with('success','New product Is created successfully');
+    }
+    public function product_order(){
+        $view = Order::with('user','product')->get();
+        return view('product.order',compact('view')); 
     }
     
 
